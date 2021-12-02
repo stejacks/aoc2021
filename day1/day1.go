@@ -1,0 +1,38 @@
+package main
+
+import (  
+    "fmt"
+    "os"
+    "bufio"
+    "log"
+    "strconv"
+)
+
+func main() {
+ file, err := os.Open("input.txt")
+    if err != nil {
+      log.Fatal(err)
+    }
+    defer file.Close()
+
+    var depths []int
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+      depth, err := strconv.Atoi(scanner.Text())
+  		if err != nil {
+     			log.Fatal(err)
+		  }
+	  	depths = append(depths, depth)
+	}
+
+  var count int
+  fmt.Println(len(depths))
+  for i := 1; i < len(depths); i++ {
+    if depths[i] > depths[i-1] {
+      count++
+    }
+  }
+
+  fmt.Println(count, " number of increases")
+
+}
